@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 768" role="img" aria-label="Vyra">
+  <rect width="768" height="768" rx="168" fill="#101317"/>
+  <rect x="1" y="1" width="766" height="766" rx="167" fill="none" stroke="#47d7b0" stroke-opacity=".22"/>
+  <path fill="#00c36a" d="M150 178
+    C150 160 166 146 184 146
+    H245
+    C267 146 285 160 292 181
+    L384 448
+    L476 181
+    C483 160 501 146 523 146
+    H584
+    C602 146 618 160 618 178
+    C618 185 617 192 614 199
+    L472 582
+    C456 625 422 652 384 652
+    C346 652 312 625 296 582
+    L154 199
+    C151 192 150 185 150 178Z"/>
+</svg>

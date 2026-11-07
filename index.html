@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vyra — open-source DJ mixing for the desktop</title>
+<meta name="description" content="Vyra is a local-first, open-source DJ mixing application for the desktop, built with C++20 and JUCE: two decks, a SQLite music library, three-band EQ, MIDI Learn and 24-bit WAV recording. Early development, GPL-3.0-only.">
+<meta name="theme-color" content="#101317">
+<link rel="canonical" href="https://vyra-audio.github.io/vyra/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vyra">
+<meta property="og:title" content="Vyra — open-source DJ mixing for the desktop">
+<meta property="og:description" content="Two decks, a local SQLite library, three-band EQ, MIDI Learn and WAV recording. Built with C++20 and JUCE, licensed GPL-3.0-only.">
+<meta property="og:url" content="https://vyra-audio.github.io/vyra/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="assets/img/vyra-mark.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/vyra-icon-large.png">
+<link rel="stylesheet" href="assets/css/styles.css">
+<script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
+</head>
+<body id="top">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container header__inner">
+    <a class="brand" href="#top" aria-label="Vyra, back to top">
+      <img src="assets/img/vyra-mark.svg" alt="" width="26" height="26">
+      <span class="brand__name">Vyra</span>
+      <span class="brand__sub">Open source</span>
+    </a>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="nav-toggle__bars" aria-hidden="true"><i></i><i></i></span>
+      <span class="nav-toggle__text">Menu</span>
+    </button>
+
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
+      <a href="#features">Features</a>
+      <a href="#controllers">Controllers</a>
+      <a href="#status">Status</a>
+      <a href="#build">Build</a>
+      <a href="#contribute">Contribute</a>
+      <a class="nav-github" href="https://github.com/vyra-audio/vyra">
+        GitHub
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5h5v5"/><path d="M19 5l-7 7"/><path d="M18 14v4.5a.5.5 0 0 1-.5.5H6a.5.5 0 0 1-.5-.5V7a.5.5 0 0 1 .5-.5h4.5"/></svg>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container hero__inner">
+      <div class="hero__copy">
+        <p class="eyebrow">
+          <span class="eyebrow__dot" aria-hidden="true"></span>
+          Early development
+          <span class="eyebrow__sep" aria-hidden="true">/</span>
+          GPL-3.0-only
+        </p>
+        <h1 id="hero-title">Two decks.<br><span class="hero__title-dim">One focused workspace.</span></h1>
+        <p class="hero__lede">
+          Vyra is a local-first, open-source DJ mixing application for the desktop, written in
+          C++20 with JUCE. Two decks, a SQLite music library, three-band channel EQ, MIDI Learn
+          and 24-bit recording — with no cloud service between you and your files.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#build">
+            Build from source
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M6 13l6 6 6-6"/></svg>
+          </a>
+          <a class="btn btn--ghost" href="https://github.com/vyra-audio/vyra">
+            View the repository
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5h5v5"/><path d="M19 5l-7 7"/><path d="M18 14v4.5a.5.5 0 0 1-.5.5H6a.5.5 0 0 1-.5-.5V7a.5.5 0 0 1 .5-.5h4.5"/></svg>
+          </a>
+        </div>
+        <p class="hero__note">
+          Vyra is not yet a replacement for mature commercial DJ systems.
+          <a href="#status">Read the current limitations</a> before using it for a performance.
+        </p>
+      </div>
+
+      <figure class="workspace">
+        <div class="workspace__frame" aria-hidden="true">
+          <div class="workspace__head">
+            <span class="workspace__title">Two-deck workspace</span>
+            <span class="workspace__meta">layout sketch</span>
+          </div>
+
+          <div class="decks">
+            <div class="deck deck--a">
+              <div class="deck__top">
+                <span class="deck__name">Deck 01</span>
+                <span class="deck__bpm">— BPM</span>
+              </div>
+              <svg class="wave" viewBox="0 0 240 48" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <defs>
+                  <linearGradient id="wave-a" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#65ecc6" stop-opacity=".95"/>
+                    <stop offset=".55" stop-color="#47d7b0" stop-opacity=".75"/>
+                    <stop offset="1" stop-color="#47d7b0" stop-opacity=".2"/>
+                  </linearGradient>
+                </defs>
+                <g fill="url(#wave-a)">
+                  <path d="M0 24 4 24 8 18 12 21 16 12 20 17 24 9 28 19 32 14 36 22 40 7 44 15 48 20 52 11 56 18 60 6 64 13 68 21 72 16 76 9 80 17 84 12 88 20 92 8 96 15 100 22 104 13 108 19 112 10 116 16 120 7 124 14 128 21 132 12 136 18 140 9 144 16 148 20 152 11 156 17 160 8 164 14 168 21 172 13 176 18 180 10 184 15 188 22 192 16 196 9 200 17 204 12 208 20 212 14 216 22 220 18 224 23 228 20 232 24 236 24 240 24Z"/>
+                  <path d="M0 24 4 24 8 18 12 21 16 12 20 17 24 9 28 19 32 14 36 22 40 7 44 15 48 20 52 11 56 18 60 6 64 13 68 21 72 16 76 9 80 17 84 12 88 20 92 8 96 15 100 22 104 13 108 19 112 10 116 16 120 7 124 14 128 21 132 12 136 18 140 9 144 16 148 20 152 11 156 17 160 8 164 14 168 21 172 13 176 18 180 10 184 15 188 22 192 16 196 9 200 17 204 12 208 20 212 14 216 22 220 18 224 23 228 20 232 24 236 24 240 24Z" transform="translate(0,48) scale(1,-1)"/>
+                </g>
+                <path d="M143 2v44" stroke="#e8fff7" stroke-opacity=".5" stroke-width="1"/>
+              </svg>
+              <div class="deck__transport">
+                <span class="chip chip--on">Cue</span>
+                <span class="chip chip--on">Play</span>
+                <span class="chip">Loop 4</span>
+                <span class="chip">Sync</span>
+              </div>
+              <div class="knobs">
+                <span class="knob" style="--v:.62"><span class="knob__dial" aria-hidden="true"></span><span class="knob__label">Low</span></span>
+                <span class="knob" style="--v:.44"><span class="knob__dial" aria-hidden="true"></span><span class="knob__label">Mid</span></span>
+                <span class="knob" style="--v:.7"><span class="knob__dial" aria-hidden="true"></span><span class="knob__label">High</span></span>
+              </div>
+            </div>
+
+            <div class="deck deck--b">
+              <div class="deck__top">
+                <span class="deck__name">Deck 02</span>
+                <span class="deck__bpm">— BPM</span>
+              </div>
+              <svg class="wave" viewBox="0 0 240 48" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <defs>
+                  <linearGradient id="wave-b" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#3fbfa0" stop-opacity=".7"/>
+                    <stop offset="1" stop-color="#3fbfa0" stop-opacity=".15"/>
+                  </linearGradient>
+                </defs>
+                <g fill="url(#wave-b)">
+                  <path d="M0 24 4 24 8 16 12 20 16 10 20 15 24 19 28 8 32 16 36 11 40 20 44 6 48 14 52 22 56 12 60 18 64 9 68 15 72 21 76 11 80 18 84 7 88 14 92 20 96 10 100 17 104 8 108 15 112 22 116 12 120 19 124 9 128 16 132 21 136 11 140 18 144 7 148 14 152 20 156 9 160 16 164 22 168 12 172 19 176 10 180 17 184 21 188 13 192 20 196 11 200 18 204 8 208 15 212 21 216 12 220 19 224 22 228 18 232 24 236 24 240 24Z"/>
+                  <path d="M0 24 4 24 8 16 12 20 16 10 20 15 24 19 28 8 32 16 36 11 40 20 44 6 48 14 52 22 56 12 60 18 64 9 68 15 72 21 76 11 80 18 84 7 88 14 92 20 96 10 100 17 104 8 108 15 112 22 116 12 120 19 124 9 128 16 132 21 136 11 140 18 144 7 148 14 152 20 156 9 160 16 164 22 168 12 172 19 176 10 180 17 184 21 188 13 192 20 196 11 200 18 204 8 208 15 212 21 216 12 220 19 224 22 228 18 232 24 236 24 240 24Z" transform="translate(0,48) scale(1,-1)"/>
+                </g>
+              </svg>
+              <div class="deck__transport">
+                <span class="chip">Cue</span>
+                <span class="chip">Play</span>
+                <span class="chip">Loop 8</span>
+                <span class="chip">Sync</span>
+              </div>
+              <div class="knobs">
+                <span class="knob" style="--v:.38"><span class="knob__dial" aria-hidden="true"></span><span class="knob__label">Low</span></span>
+                <span class="knob" style="--v:.56"><span class="knob__dial" aria-hidden="true"></span><span class="knob__label">Mid</span></span>
+                <span class="knob" style="--v:.48"><span class="knob__dial" aria-hidden="true"></span><span class="knob__label">High</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mixer">
+            <div class="mixer__fader">
+              <span class="mixer__label">Crossfader</span>
+              <span class="fader" aria-hidden="true"><span class="fader__track"></span><span class="fader__thumb" style="--pos:52%"></span></span>
+              <span class="mixer__ends" aria-hidden="true">A&nbsp;&nbsp;B</span>
+            </div>
+            <div class="mixer__master">
+              <span class="mixer__label">Master</span>
+              <span class="meter" aria-hidden="true">
+                <i style="--h:38%"></i><i style="--h:62%"></i><i style="--h:48%"></i><i style="--h:76%"></i><i style="--h:58%"></i><i style="--h:88%"></i><i style="--h:66%"></i><i style="--h:52%"></i><i style="--h:72%"></i><i style="--h:44%"></i><i style="--h:60%"></i><i style="--h:34%"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+        <figcaption>Original illustration of the workspace layout — a design sketch, not a screenshot of the application.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- At a glance -->
+  <section class="facts" aria-labelledby="facts-title">
+    <h2 class="visually-hidden" id="facts-title">Vyra at a glance</h2>
+    <div class="container">
+      <dl class="facts__grid">
+        <div class="fact">
+          <dt class="fact__label">Decks</dt>
+          <dd>
+            <span class="fact__value">02</span>
+            <span class="fact__text">Independent playback, cue, hot cues and loops.</span>
+          </dd>
+        </div>
+        <div class="fact">
+          <dt class="fact__label">Automated test suites</dt>
+          <dd>
+            <span class="fact__value">04</span>
+            <span class="fact__text">Mixing math, loop regions, library and MIDI, run with CTest.</span>
+          </dd>
+        </div>
+        <div class="fact">
+          <dt class="fact__label">Band channel EQ</dt>
+          <dd>
+            <span class="fact__value">03</span>
+            <span class="fact__text">Low, mid and high per deck, plus filter, echo and gain.</span>
+          </dd>
+        </div>
+        <div class="fact">
+          <dt class="fact__label">MIDI pitch bend</dt>
+          <dd>
+            <span class="fact__value">14<span class="fact__unit">-bit</span></span>
+            <span class="fact__text">Resolution for continuous controls, learned in the app.</span>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section" id="features" aria-labelledby="features-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Features</p>
+        <h2 id="features-title">What is actually in the source</h2>
+        <p class="section-head__lede">
+          Vyra is a small, deliberate application rather than a feature checklist. Everything below
+          exists in the current tree and is described in the README or the technical docs.
+        </p>
+      </div>
+
+      <div class="feature-group">
+        <div class="group-head">
+          <h3>Mix and perform</h3>
+          <p>Two decks, a channel strip each, and a master bus that records.</p>
+        </div>
+        <ul class="feature-list" role="list">
+          <li class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="M12 4.5v15"/><path d="M6 9h3M15 9h3M6 15h3M15 15h3"/></svg>
+            </span>
+            <h4>Two independent decks</h4>
+            <p>
+              Asynchronous track loading, play/pause, cue and seek on both decks, each with a
+              compact overview waveform. Click or drag the overview to seek; double-click it to
+              load another track.
+            </p>
+          </li>
+          <li class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V4"/><path d="M6 4.5l10 4-10 4"/><path d="M18 15.5a3.4 3.4 0 0 1-3.4 3.4"/></svg>
+            </span>
+            <h4>Hot cues and loops</h4>
+            <p>
+              Three saved hot cues per track, 1/2/4/8-beat region loops, four-beat forward and
+              backward jumps, and pitch adjustment up to ±16%. Cue points and loop length are
+              remembered with the track.
+            </p>
+          </li>
+          <li class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v16M12 4v16M18 4v16"/><circle cx="6" cy="9.5" r="1.6"/><circle cx="12" cy="15" r="1.6"/><circle cx="18" cy="7.5" r="1.6"/></svg>
+            </span>
+            <h4>Channel strip</h4>
+            <p>
+              Per deck: three-band EQ, a resonant filter, echo, channel gain and a level meter.
+              The EQ maps a full MIDI sweep to −12 dB through +12 dB.
+            </p>
+          </li>
+          <li class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18"/><circle cx="12" cy="12" r="3.2"/><path d="M3 8.5h4M3 15.5h4M17 8.5h4M17 15.5h4"/></svg>
+            </span>
+            <h4>Master section</h4>
+            <p>
+              An equal-power crossfader, master gain, a bounded peak limiter and an output meter,
+              mixed from two stereo deck buffers.
+            </p>
+          </li>
+          <li class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/></svg>
+            </span>
+            <h4>Record the set</h4>
+            <p>
+              Capture the limited master output to a 24-bit stereo WAV file, with pause and resume.
+              Encoding runs on a worker path, never inside the audio callback.
+            </p>
+          </li>
+          <li class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="2.5" y="13.5" width="4.5" height="6.5" rx="2"/><rect x="17" y="13.5" width="4.5" height="6.5" rx="2"/></svg>
+            </span>
+            <h4>Headphone cue</h4>
+            <p>
+              Pre-fader deck monitoring with a cue/master mix, on audio devices that expose four or
+              more outputs. The headphone output pair is selectable in Settings.
+            </p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="feature-group">
+        <div class="group-head">
+          <h3>Organize the library</h3>
+          <p>A local SQLite database, not a cloud catalogue.</p>
+        </div>
+        <ul class="feature-list" role="list">
+          <li class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7.2" ry="3"/><path d="M4.8 6v12c0 1.66 3.22 3 7.2 3s7.2-1.34 7.2-3V6"/><path d="M4.8 12c0 1.66 3.22 3 7.2 3s7.2-1.34 7.2-3"/></svg>
+            </span>
+            <h4>Local music library</h4>
+            <p>
+              Import folders into a SQLite library that keeps embedded metadata and cached waveform
+              peaks. Tracks opened straight from disk still appear in the history.
+            </p>
+          </li>
+          <li class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/><path d="M8 10.5h5"/></svg>
+            </span>
+            <h4>Search, playlists and history</h4>
+            <p>
+              Search title, artist, album, genre or path. Build named playlists with duplicate-safe
+              add and remove, and review recent plays with timestamps and deck attribution.
+            </p>
+          </li>
+          <li class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3.5l2.2-5.5 3.2 11 2.3-5.5H21"/></svg>
+            </span>
+            <h4>BPM and key estimates</h4>
+            <p>
+              Automatic tempo and chroma-based key estimates when embedded metadata is missing, plus
+              BPM display, beat jumps and one-shot sync on the decks. These are estimates, not
+              editable beat grids.
+            </p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="feature-group">
+        <div class="group-head">
+          <h3>Controllers, devices and integrations</h3>
+          <p>Standard MIDI input, explicit about what it does not cover.</p>
+        </div>
+        <ul class="feature-list" role="list">
+          <li class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><circle cx="9.2" cy="9.8" r="1" fill="currentColor"/><circle cx="14.8" cy="9.8" r="1" fill="currentColor"/><circle cx="12" cy="14.8" r="1" fill="currentColor"/></svg>
+            </span>
+            <h4>MIDI Learn</h4>
+            <p>
+              Pick any MIDI input the operating system exposes, choose an action, press Learn, then
+              move the control. An existing duplicate assignment is replaced, so one control never
+              drives two actions.
+            </p>
+          </li>
+          <li class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5h17M3.5 15.5h17"/><circle cx="16" cy="8.5" r="2.2"/><circle cx="9" cy="15.5" r="2.2"/></svg>
+            </span>
+            <h4>Mapping depth</h4>
+            <p>
+              Buttons learn MIDI notes, knobs and faders learn 7-bit CC, and continuous actions accept
+              14-bit pitch bend. A jog wheel maps to a relative seek nudge — 20 ms per tick, not
+              scratch emulation.
+            </p>
+          </li>
+          <li class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 4h-2A2.5 2.5 0 0 0 5 6.5V9a2.4 2.4 0 0 1-2.4 3A2.4 2.4 0 0 1 5 15v2.5A2.5 2.5 0 0 0 7.5 20h2"/><path d="M14.5 4h2A2.5 2.5 0 0 1 19 6.5V9a2.4 2.4 0 0 0 2.4 3A2.4 2.4 0 0 0 19 15v2.5a2.5 2.5 0 0 1-2.5 2.5h-2"/></svg>
+            </span>
+            <h4>Portable maps</h4>
+            <p>
+              Export assignments as a versioned JSON file and import them on another machine.
+              Imports are validated before they replace the current map; malformed or duplicate
+              entries are rejected.
+            </p>
+          </li>
+          <li class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10h.01M11 10h.01M15 10h.01M7 14h10"/></svg>
+            </span>
+            <h4>Starter profiles</h4>
+            <p>
+              Four small starter mappings: Numark Party Mix, Pioneer DDJ-400, Pioneer DDJ-FLX4 and
+              Hercules DJControl Inpulse 500. Other controls can be assigned with MIDI Learn.
+            </p>
+          </li>
+          <li class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="11" rx="2"/><path d="M9 20h6M12 16v4"/><path d="M7 10.5h4"/></svg>
+            </span>
+            <h4>Audio device settings</h4>
+            <p>
+              Choose the audio backend and output device, and see the active sample rate and buffer
+              size. Headphone routing appears when the device exposes enough outputs.
+            </p>
+          </li>
+          <li class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 5.5h10A3.5 3.5 0 0 1 20.5 9v4A3.5 3.5 0 0 1 17 16.5h-3.5L9 20v-3.5H7A3.5 3.5 0 0 1 3.5 13V9A3.5 3.5 0 0 1 7 5.5Z"/></svg>
+            </span>
+            <h4>Discord Rich Presence</h4>
+            <p>
+              Optional and on by default: shares the active deck's title and playback progress with
+              the local Discord desktop client. It can be switched off in Settings.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Controllers -->
+  <section class="section section--panel" id="controllers" aria-labelledby="controllers-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Controllers</p>
+        <h2 id="controllers-title">Any MIDI input, mapped by hand</h2>
+        <p class="section-head__lede">
+          Vyra follows the standard MIDI input protocol rather than a vendor driver, and lets you
+          build the mapping yourself instead of promising pre-mapped hardware.
+        </p>
+      </div>
+
+      <div class="controllers__grid">
+        <div class="controllers__copy">
+          <ol class="steps" role="list">
+            <li class="step">
+              <span class="step__num" aria-hidden="true">01</span>
+              <h3>Select the input</h3>
+              <p>Open <em>Settings → MIDI Controller</em> and choose any MIDI input your system lists.</p>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">02</span>
+              <h3>Learn one action</h3>
+              <p>Pick an action, press <em>Learn</em>, then press the button or move the fader you want to use.</p>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">03</span>
+              <h3>Keep the map</h3>
+              <p>Assignments persist in the Vyra settings file, and export to JSON for another machine.</p>
+            </li>
+          </ol>
+          <p class="controllers__note">
+            Learnable actions include play, cue, three hot cues, loop toggle, beat jump, one-shot
+            sync, headphone cue, pitch, the three EQ bands, filter, echo, crossfader, channel level
+            and master gain.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="subhead">Included starter profiles</h3>
+          <ul class="profiles" role="list">
+            <li class="profile">
+              <div class="profile__head">
+                <h4>Numark Party Mix</h4>
+                <span class="profile__gen">Original generation</span>
+              </div>
+              <p class="profile__controls">Play and cue on both decks; crossfader.</p>
+              <a class="profile__source" href="https://github.com/mixxxdj/mixxx/blob/main/res/controllers/Numark-Party-Mix.midi.xml">
+                Checked against the Mixxx mapping
+              </a>
+            </li>
+            <li class="profile">
+              <div class="profile__head">
+                <h4>Pioneer DDJ-400</h4>
+                <span class="profile__gen">Starter</span>
+              </div>
+              <p class="profile__controls">Play and cue on both decks.</p>
+              <a class="profile__source" href="https://github.com/mixxxdj/mixxx/blob/main/res/controllers/Pioneer-DDJ-400.midi.xml">
+                Checked against the Mixxx mapping
+              </a>
+            </li>
+            <li class="profile">
+              <div class="profile__head">
+                <h4>Pioneer DDJ-FLX4</h4>
+                <span class="profile__gen">Starter</span>
+              </div>
+              <p class="profile__controls">Play and cue on both decks.</p>
+              <a class="profile__source" href="https://github.com/mixxxdj/mixxx/blob/main/res/controllers/Pioneer-DDJ-FLX4.midi.xml">
+                Checked against the Mixxx mapping
+              </a>
+            </li>
+            <li class="profile">
+              <div class="profile__head">
+                <h4>Hercules DJControl Inpulse 500</h4>
+                <span class="profile__gen">Starter</span>
+              </div>
+              <p class="profile__controls">Play and cue on both decks.</p>
+              <a class="profile__source" href="https://github.com/mixxxdj/mixxx/blob/main/res/controllers/Hercules_DJControl_Inpulse_500.midi.xml">
+                Checked against the Mixxx mapping
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout callout--warn">
+        <span class="callout__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M12 4.5 21 19.5H3Z"/><path d="M12 10v4"/><path d="M12 16.6h.01"/></svg>
+        </span>
+        <p>
+          <strong>Hardware is not verified.</strong> These starter mappings were checked against
+          the referenced Mixxx controller files, not tested on physical hardware with Vyra.
+          Device-level support varies. HID devices, controller LEDs, MIDI output and
+          timecode/DVS are not implemented.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Status -->
+  <section class="section" id="status" aria-labelledby="status-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Status and limits</p>
+        <h2 id="status-title">Early development, stated plainly</h2>
+        <p class="section-head__lede">
+          Vyra is an actively developed foundation for a two-deck DJ application. The roadmap
+          describes targets, not finished work — every item below is a known limit of the current
+          tree.
+        </p>
+      </div>
+
+      <div class="status__grid">
+        <div class="panel">
+          <h3 class="panel__title">Current limitations</h3>
+          <ul class="checklist checklist--limit" role="list">
+            <li>Two-deck operation only. Four decks are not implemented.</li>
+            <li>Pitch changes playback speed and pitch together; there is no key lock or time stretching.</li>
+            <li>BPM and key are automatic estimates. Editable beat grids and beat-aligned continuous sync do not exist yet.</li>
+            <li>MIDI jog is a relative seek nudge, not scratch emulation. HID, LED feedback, MIDI output and DVS/timecode are absent.</li>
+            <li>Supported audio formats depend on the JUCE build and the format modules enabled.</li>
+            <li>Backends, routing and latency depend on the platform and drivers; no latency figure or hardware compatibility is claimed.</li>
+            <li>Missing library files are flagged, but relinking is not implemented yet.</li>
+            <li>The audio callback has not been benchmarked for worst-case latency. This is a functional audio foundation, not a latency certification.</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3 class="panel__title">Next milestones</h3>
+          <ol class="checklist checklist--roadmap" role="list">
+            <li>Audio callback stress and latency tests, safe source replacement, device-change recovery, supported-format verification.</li>
+            <li>Better BPM and key analysis, editable beat grids, beat-aware sync, quantise, key-locked time-stretch, scratch-grade jog control.</li>
+            <li>Headphone routing validation across drivers, improved EQ, filter and effects, extensible effect interfaces.</li>
+            <li>Recording export formats and metadata, MIDI output and LED feedback, hardware verification.</li>
+            <li>Four-deck mode, workspace persistence and layouts, themes, recovery, release packages and cross-platform verification.</li>
+          </ol>
+          <p class="panel__foot">
+            <a class="link-arrow" href="https://github.com/vyra-audio/vyra/blob/main/ROADMAP.md">
+              Read the full roadmap
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="M13 6l6 6-6 6"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <blockquote class="quote">
+        <p>“A listed item is a target, not a claim that it already exists.”</p>
+        <footer>— <cite>ROADMAP.md</cite></footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Build -->
+  <section class="section section--panel" id="build" aria-labelledby="build-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Build</p>
+        <h2 id="build-title">From source, in three commands</h2>
+        <p class="section-head__lede">
+          Vyra has no installer on this page. The supported path is a CMake build with a C++20
+          toolchain; dependencies are fetched and pinned on the first configure.
+        </p>
+      </div>
+
+      <div class="build__grid">
+        <div class="build__req">
+          <h3 class="subhead">Requirements</h3>
+          <ul class="checklist" role="list">
+            <li>CMake 3.22 or later.</li>
+            <li>A C++20 compiler and a native desktop/audio development toolchain.</li>
+            <li>Git and network access for the initial configure, which fetches pinned dependencies.</li>
+            <li>JUCE 7.0.12 is pinned. Set <code>-DVYRA_USE_SYSTEM_JUCE=ON</code> to use an installed JUCE CMake package instead.</li>
+          </ul>
+          <h3 class="subhead">After the build</h3>
+          <p class="build__text">
+            The executable is placed under <code>build/Vyra_artefacts/Release/</code>
+            (<code>Vyra.exe</code> on Windows). Run the test suites with
+            <code>ctest --test-dir build --output-on-failure</code>, adding <code>-C Release</code>
+            on multi-configuration generators.
+          </p>
+        </div>
+
+        <div class="build__code">
+          <div class="code">
+            <div class="code__head">
+              <span class="code__title">Windows · PowerShell</span>
+              <button class="codecopy" type="button" data-copy="cmd-windows" aria-label="Copy the Windows build commands">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="1.5"/><path d="M15 6V4.5A1.5 1.5 0 0 0 13.5 3H5.5A1.5 1.5 0 0 0 4 4.5v8A1.5 1.5 0 0 0 5.5 14H7"/></svg>
+                <span class="codecopy__label">Copy</span>
+              </button>
+            </div>
+<pre><code id="cmd-windows">cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build --config Release
+ctest --test-dir build -C Release --output-on-failure</code></pre>
+          </div>
+
+          <div class="code">
+            <div class="code__head">
+              <span class="code__title">Linux and macOS</span>
+              <button class="codecopy" type="button" data-copy="cmd-unix" aria-label="Copy the Linux and macOS build commands">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="1.5"/><path d="M15 6V4.5A1.5 1.5 0 0 0 13.5 3H5.5A1.5 1.5 0 0 0 4 4.5v8A1.5 1.5 0 0 0 5.5 14H7"/></svg>
+                <span class="codecopy__label">Copy</span>
+              </button>
+            </div>
+<pre><code id="cmd-unix">cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build --config Release
+ctest --test-dir build --output-on-failure</code></pre>
+          </div>
+
+          <p class="build__more">
+            Full instructions, including requirements and system notes, live in the
+            <a href="https://github.com/vyra-audio/vyra/blob/main/README.md">README</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contribute -->
+  <section class="section" id="contribute" aria-labelledby="contribute-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Contribute</p>
+        <h2 id="contribute-title">Code, tests, docs and bug reports</h2>
+        <p class="section-head__lede">
+          Vyra is GPL-3.0-only free software. Contributions of code, tests and documentation are
+          welcome, and audio bugs are much easier to fix with a precise report.
+        </p>
+      </div>
+
+      <div class="contribute__grid">
+        <a class="card" href="https://github.com/vyra-audio/vyra/issues/new/choose">
+          <span class="card__kicker">Issues</span>
+          <h3>Report a bug or request a feature</h3>
+          <p>
+            Bug reports and feature requests are welcome. For audio problems, include your OS,
+            audio backend and device, sample rate, buffer size, file format and reproduction steps.
+          </p>
+          <span class="card__link">Open an issue <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="card" href="https://github.com/vyra-audio/vyra/blob/main/CONTRIBUTING.md">
+          <span class="card__kicker">Contributing guide</span>
+          <h3>Before you open a pull request</h3>
+          <p>
+            Keep file I/O, allocation, locks, UI and database work out of audio callbacks, and add a
+            focused test for behaviour changes. Contributors agree to the GPL-3.0-only licence.
+          </p>
+          <span class="card__link">Read CONTRIBUTING.md <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="card" href="https://github.com/vyra-audio/vyra/blob/main/docs/ARCHITECTURE.md">
+          <span class="card__kicker">Architecture</span>
+          <h3>How the audio path is organised</h3>
+          <p>
+            Component boundaries, the read-ahead thread, the bounded recording FIFO and the
+            real-time constraints the project holds itself to.
+          </p>
+          <span class="card__link">Read ARCHITECTURE.md <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="card" href="https://github.com/vyra-audio/vyra/blob/main/docs/CONTROLLERS.md">
+          <span class="card__kicker">Controllers</span>
+          <h3>MIDI setups and their limits</h3>
+          <p>
+            MIDI Learn walkthroughs, the included profiles, CC encodings, jog behaviour and what
+            the MIDI-only workflow cannot do.
+          </p>
+          <span class="card__link">Read CONTROLLERS.md <span aria-hidden="true">→</span></span>
+        </a>
+      </div>
+
+      <div class="license">
+        <div class="license__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M12 3.2 20 7v5.4c0 4.3-3.3 7.4-8 8.4-4.7-1-8-4.1-8-8.4V7Z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.6"/></svg>
+        </div>
+        <div>
+          <h3>Licence</h3>
+          <p>
+            Vyra is distributed under <strong>GPL-3.0-only</strong>; see the
+            <a href="https://github.com/vyra-audio/vyra/blob/main/LICENSE">LICENSE</a> file. JUCE
+            7.0.12 is pinned to maintain licence compatibility. Review the licences and codec terms
+            of dependencies before enabling or distributing them.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Built with -->
+  <section class="section section--tight" id="technology" aria-labelledby="technology-title">
+    <div class="container">
+      <div class="tech">
+        <div class="tech__head">
+          <p class="eyebrow">Under the hood</p>
+          <h2 id="technology-title">Confirmed dependencies</h2>
+          <p class="section-head__lede">
+            Only what the build files and documentation actually pin. Nothing else is claimed.
+          </p>
+        </div>
+        <ul class="tech__list" role="list">
+          <li><span class="tech__name">C++20</span><span class="tech__note">Language standard, required by the target</span></li>
+          <li><span class="tech__name">JUCE 7.0.12</span><span class="tech__note">GUI and audio framework, fetched and pinned by CMake</span></li>
+          <li><span class="tech__name">CMake 3.22+</span><span class="tech__note">Build system; dependencies fetched at configure time</span></li>
+          <li><span class="tech__name">SQLite</span><span class="tech__note">Local track library, playlists and playback history</span></li>
+          <li><span class="tech__name">CTest</span><span class="tech__note">Four focused test executables: mixing math, loops, library, MIDI</span></li>
+          <li><span class="tech__name">GPL-3.0-only</span><span class="tech__note">Project licence, listed in the README and LICENSE</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="brand" href="#top">
+          <img src="assets/img/vyra-mark.svg" alt="" width="24" height="24">
+          <span class="brand__name">Vyra</span>
+        </a>
+        <p>Open-source DJ mixing for the desktop. Two decks, a local library and MIDI you map yourself.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Project">
+        <h2 class="footer__title">Project</h2>
+        <ul role="list">
+          <li><a href="https://github.com/vyra-audio/vyra">Repository</a></li>
+          <li><a href="https://github.com/vyra-audio/vyra/blob/main/README.md">README</a></li>
+          <li><a href="https://github.com/vyra-audio/vyra/blob/main/ROADMAP.md">Roadmap</a></li>
+          <li><a href="https://github.com/vyra-audio/vyra/blob/main/CONTRIBUTING.md">Contributing</a></li>
+        </ul>
+      </nav>
+      <nav class="footer__nav" aria-label="Documentation and licence">
+        <h2 class="footer__title">Documentation</h2>
+        <ul role="list">
+          <li><a href="#build">Build instructions</a></li>
+          <li><a href="https://github.com/vyra-audio/vyra/blob/main/docs/ARCHITECTURE.md">Architecture</a></li>
+          <li><a href="https://github.com/vyra-audio/vyra/blob/main/docs/CONTROLLERS.md">Controllers</a></li>
+          <li><a href="https://github.com/vyra-audio/vyra/blob/main/LICENSE">Licence (GPL-3.0-only)</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer__base">
+      <p>Vyra · GPL-3.0-only · Built with C++20 and JUCE</p>
+      <p class="footer__note">This site describes the source tree; no builds or statistics are hosted here.</p>
+      <a class="footer__top" href="#top">Back to top <span aria-hidden="true">↑</span></a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>
