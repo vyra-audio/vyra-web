@@ -16,6 +16,7 @@
 <link rel="icon" href="assets/img/vyra-mark.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/img/vyra-icon-large.png">
 <link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/demo.css">
 <script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
 </head>
 <body id="top">
@@ -36,6 +37,7 @@
     </button>
 
     <nav class="site-nav" id="site-nav" aria-label="Primary">
+      <a href="#demo">Demo</a>
       <a href="#features">Features</a>
       <a href="#controllers">Controllers</a>
       <a href="#status">Status</a>
@@ -72,9 +74,9 @@
             Build from source
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M6 13l6 6 6-6"/></svg>
           </a>
-          <a class="btn btn--ghost" href="https://github.com/vyra-audio/vyra">
-            View the repository
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5h5v5"/><path d="M19 5l-7 7"/><path d="M18 14v4.5a.5.5 0 0 1-.5.5H6a.5.5 0 0 1-.5-.5V7a.5.5 0 0 1 .5-.5h4.5"/></svg>
+          <a class="btn btn--ghost" href="#demo">
+            Try the local demo
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M12 4.5v15"/><path d="M6.5 9h2.5M15 9h2.5"/></svg>
           </a>
         </div>
         <p class="hero__note">
@@ -170,6 +172,110 @@
         </div>
         <figcaption>Original illustration of the workspace layout — a design sketch, not a screenshot of the application.</figcaption>
       </figure>
+    </div>
+  </section>
+
+  <!-- Library demo -->
+  <section class="section section--panel demo-section" id="demo" aria-labelledby="demo-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Library demo</p>
+        <h2 id="demo-title">Import your own tracks, right here</h2>
+        <p class="section-head__lede">
+          A browser preview of the Vyra import flow. Choose a folder and the library fills up, then
+          load a track onto a deck with a waveform generated from the audio itself. Files are opened
+          with the browser's File API — no upload, no account, no server.
+        </p>
+      </div>
+
+      <div class="demo" id="demo-app">
+        <div class="demo__head">
+          <span class="demo__title">Local library</span>
+          <span class="demo__count" id="demo-count">No tracks imported</span>
+        </div>
+
+        <div class="demo__body">
+          <div class="demo__import">
+            <div class="dropzone" id="dropzone">
+              <span class="dropzone__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15.5V4"/><path d="M7.5 8.5 12 4l4.5 4.5"/><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/></svg>
+              </span>
+              <p class="dropzone__title">Drop audio files or a folder</p>
+              <p class="dropzone__hint">MP3, WAV, FLAC, OGG or M4A — whatever this browser can decode.</p>
+              <div class="dropzone__actions">
+                <button class="btn btn--primary btn--small" type="button" id="pick-folder">Choose folder</button>
+                <button class="btn btn--ghost btn--small" type="button" id="pick-files">Choose files</button>
+              </div>
+              <input type="file" id="file-input" accept="audio/*,.mp3,.wav,.flac,.ogg,.oga,.m4a,.aac,.opus,.aif,.aiff" multiple hidden>
+              <input type="file" id="folder-input" webkitdirectory multiple hidden>
+            </div>
+            <p class="demo__privacy">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>
+              <span>Nothing is uploaded and no request leaves this page. Reloading clears the demo.</span>
+            </p>
+            <p class="demo__message" id="demo-message" role="status" aria-live="polite"></p>
+          </div>
+
+          <div class="demo__library">
+            <div class="demo__toolbar">
+              <label class="visually-hidden" for="demo-search">Search imported tracks</label>
+              <input class="demo__search" id="demo-search" type="search" placeholder="Search title, artist or album" autocomplete="off">
+              <button class="demo__clear" type="button" id="demo-clear" disabled>Clear</button>
+            </div>
+            <div class="demo__tablewrap">
+              <table class="demo__table" id="demo-table" hidden>
+                <caption class="visually-hidden">Tracks imported into this browser demo</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Track</th>
+                    <th scope="col" class="col-artist">Artist</th>
+                    <th scope="col" class="col-album">Album</th>
+                    <th scope="col">Length</th>
+                    <th scope="col" class="col-pick">Deck</th>
+                  </tr>
+                </thead>
+                <tbody id="demo-rows"></tbody>
+              </table>
+              <p class="demo__empty" id="demo-empty">No tracks yet. Titles and artists come from ID3 tags when present, otherwise from the file name.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo__decks">
+          <div class="deck deck--a demo-deck" data-deck="0">
+            <div class="deck__top">
+              <span class="deck__name">Deck 01</span>
+              <span class="demo-deck__status" data-role="status">Empty</span>
+            </div>
+            <p class="demo-deck__track" data-role="track">Nothing loaded</p>
+            <canvas class="demo-deck__wave" data-role="wave" width="600" height="72" tabindex="-1" role="slider" aria-label="Deck 01 waveform" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" aria-valuetext="No track loaded" aria-disabled="true"></canvas>
+            <div class="demo-deck__foot">
+              <span class="demo-deck__time" data-role="time">00:00</span>
+              <button class="chip chip--button" type="button" data-role="play" disabled>Play</button>
+              <button class="chip chip--button" type="button" data-role="eject" disabled>Eject</button>
+            </div>
+          </div>
+
+          <div class="deck deck--b demo-deck" data-deck="1">
+            <div class="deck__top">
+              <span class="deck__name">Deck 02</span>
+              <span class="demo-deck__status" data-role="status">Empty</span>
+            </div>
+            <p class="demo-deck__track" data-role="track">Nothing loaded</p>
+            <canvas class="demo-deck__wave" data-role="wave" width="600" height="72" tabindex="-1" role="slider" aria-label="Deck 02 waveform" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" aria-valuetext="No track loaded" aria-disabled="true"></canvas>
+            <div class="demo-deck__foot">
+              <span class="demo-deck__time" data-role="time">00:00</span>
+              <button class="chip chip--button" type="button" data-role="play" disabled>Play</button>
+              <button class="chip chip--button" type="button" data-role="eject" disabled>Eject</button>
+            </div>
+          </div>
+        </div>
+
+        <p class="demo__caption">
+          Browser demo of the import and deck-loading flow — not the desktop application, and not
+          connected to the Vyra SQLite library. Waveforms are computed from your files in this tab.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -755,6 +861,7 @@ ctest --test-dir build --output-on-failure</code></pre>
   </div>
 </footer>
 
+<script src="assets/js/demo.js" defer></script>
 <script src="assets/js/main.js" defer></script>
 </body>
 </html>
